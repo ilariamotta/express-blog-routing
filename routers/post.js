@@ -1,19 +1,26 @@
 import express from "express";
+import posts from "../data.js";
 
 const router = express.Router();
 
 //INDEX
 
 router.get("/", (req, res) => {
-    res.send("Lista videogiochi")
+
+    const listaVideogiochi = {
+        totale: posts.length,
+        risultati: posts,
+
+    }
+    res.json(listaVideogiochi)
 })
 
 //SHOW
 
 router.get("/:id", (req, res) => {
-    const id = req.params.id;
-    console.log("singolo")
-    res.send("Videogioco singolo " + id)
+    const id = parseInt(req.params.id);
+    const videogioco = posts.find(game => game.id === id)
+    res.json(videogioco)
 })
 
 // STORE
